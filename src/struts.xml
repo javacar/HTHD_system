@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<package name="struts2" extends="struts-default" namespace="/">
+		<action name="account" class="com.HTHD_system.action.AccoutAction">
+			<result name="Base1">/Base1.jsp</result>
+			<result name="Account">/Account.jsp</result>
+		</action>
+		<action name="notificationLog" class="com.HTHD_system.action.NotificationLogAction">
+			<result name="iOS_Notification">/iOS_Notification.jsp</result>
+		</action>
+		
+		<action name="notification" class="com.HTHD_system.action.NotificationAction">
+			<result name="successNotification">/successNotification.jsp</result>
+		</action>
+		
+	</package>
+</struts>

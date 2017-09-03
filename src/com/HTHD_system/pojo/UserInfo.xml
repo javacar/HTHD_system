@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd">
+<sqlMap namespace="logs">
+	<typeAlias alias="userInfo" type="com.HTHD_system.pojo.UserInfo" />
+	<resultMap class="userInfo" id="userInfoResult">	
+<result property="id"  column="UserID"/>
+<result property="name"  column="UserName"/>
+<result property="trueName"  column="UserTrueName"/>
+<result property="move"  column="UserMove"/>
+<result property="sex"  column="UserSex"/>
+<result property="age"  column="UserAge"/>
+<result property="identity"  column=" UserIdentity"/>
+<result property="phone"  column="UserPhone"/>
+<result property="address"  column="UserAddress"/>
+<result property="login"  column="UserLogin"/>
+<result property="exit"  column=" UserExit"/>
+<result property="register"  column="UserIntegral"/>
+<result property="integral"  column="UserMobile"/>
+<result property="sequence"  column="UserSequence"/>
+<result property="mac"  column="UserMac"/>
+<result property="password"  column="UserPwd"/>
+<result property="system"  column="UserSystem"/>
+<result property="register"  column="UserRegister"/>
+<result property="nickName"  column="UserNickName"/>
+<result property="mobileBrand"  column="MobileBrand"/>
+<result property="modelNumber"  column="ModelNumber"/>
+<result property="changeCode"  column="User_LastValueChangeCode"/>
+<result property="mobileBrand"  column="apn_username"/>
+
+	</resultMap>
+
+
+
+</sqlMap>

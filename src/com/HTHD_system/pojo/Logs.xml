@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd">
+<sqlMap namespace="logs">
+	<typeAlias alias="logs" type="com.HTHD_system.pojo.Logs" />
+	<resultMap class="logs" id="logsResult">
+		<result property="logUid" column="Log_Uid" />
+		<result property="loginTime" column="Login_Time" />
+		<result property="logoutTime" column="Logout_Time" />
+		<result property="ip" column="IP" />
+		<result property="account.accountUid" column="Account_Uid" />
+		<result property="account.name" column="Name" />
+		<result property="account.password" column="Password" />
+	</resultMap>
+
+<insert id="login" parameterClass="logs">
+	insert into Logs(Account_Uid,IP,Login_Time,Logout_Time)
+	values(#account.accountUid#,#ip#,#loginTime#,#logoutTime#)
+	 <selectKey resultClass="int" keyProperty="logUid">
+        SELECT @@IDENTITY AS Log_Uid
+    </selectKey>  
+</insert>
+
+<insert id="logout" parameterClass="logs">
+	insert into Logs(Account_Uid,IP,Logout_Time,Login_Time)
+	values(#account.accountUid#,#ip#,#logoutTime#,#loginTime#)
+	<selectKey resultClass="int" keyProperty="logUid">
+        SELECT @@IDENTITY AS Log_Uid
+    </selectKey>  
+</insert>
+
+
+</sqlMap>

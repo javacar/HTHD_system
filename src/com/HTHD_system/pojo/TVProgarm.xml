@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd">
+<sqlMap namespace="progarm">
+	<typeAlias alias="progarm" type="com.HTHD_system.pojo.TVProgarm" />
+	<resultMap class="progarm" id="progarmResult">
+		<result property="tvpId" column="TVP_ID" />
+		<result property="tvpName" column="TVP_Name" />
+	</resultMap>
+	<!--栏目、期号、奖项的下拉列表初始数据通过AVID查询（即如果没有AVID对应男生女生向前冲，栏目下列列表中就不包含男生女生向前冲）  -->
+	<select id="getAllTVProgarms"  resultClass="progarm">
+		select distinct a.TVP_ID tvpId,TVP_Name tvpName from TV_Program a inner join ActVersion
+		b on a.TVP_ID=b.TVP_ID and TVP_Status=0 inner join Prize c on c.avid=b.avid 
+	</select>
+
+</sqlMap>

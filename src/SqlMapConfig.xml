@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD sql Map config 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-config-2.dtd">
+<sqlMapConfig>
+	<sqlMap resource="com/HTHD_system/pojo/Account.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/NotificationLog.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/Logs.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/IOSNotification.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/IOSToken.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/UserInfo.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/TVProgarm.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/ActVersion.xml" />
+	<sqlMap resource="com/HTHD_system/pojo/Prize.xml" />	
+</sqlMapConfig>

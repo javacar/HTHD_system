@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd"> 
+<sqlMap namespace="notification"> 
+<typeAlias alias="notification" type="com.HTHD_system.pojo.IOSNotification"/> 
+<resultMap class="notification" id="notificationResult"> 
+<result property="inUid" column="iN_Uid"/>
+<result property="inTarget" column="iN_Target"/>
+<result property="inContent" column="iN_Content"/>
+<result property="sendTime" column="SendTime"/>
+<result property="sendCount" column="SendCount"/>
+<result property="successCount" column="SuccessCount" />
+<result property="failureCount" column="FailureCount" />
+</resultMap> 
+<insert id="insertIOSNotification" >
+insert into iOS_Notification(iN_Target,iN_Content,SendCount
+<dynamic>
+		<isNotEmpty property="successCount">,SuccessCount</isNotEmpty>
+		<isNotEmpty property="failureCount">,FailureCount</isNotEmpty>
+</dynamic> 
+) values(#inTarget#,#inContent#,#sendCount#
+<dynamic>
+		<isNotEmpty property="successCount">,#successCount#</isNotEmpty>
+		<isNotEmpty property="failureCount">,#failureCount#</isNotEmpty>
+</dynamic> 
+)
+ <selectKey resultClass="int" keyProperty="inUid">
+        SELECT @@IDENTITY AS iN_Uid
+    </selectKey>  
+</insert>
+<select id="findIOSNotification" resultMap="notificationResult">
+select iN_Uid,iN_Target,iN_Content,SendTime,SendCount,SuccessCount,FailureCount 
+from iOS_Notification where iN_Uid =#value#
+</select>
+
+</sqlMap> 

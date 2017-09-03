@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	<bean id="jdbcproperty"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:jdbc.properties</value>
+		</property>
+	</bean>
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc.password}</value>
+		</property>
+	</bean>
+	
+	
+
+	<!-- 配置数据源 -->
+	<bean id="sqlMapClient"
+		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:SqlMapConfig.xml</value>
+		</property>
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="sqlMapClientTemplate"
+		class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="accountDao"
+		class="com.HTHD_system.dao.impl.AccountDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+	<bean id="accountService"
+		class="com.HTHD_system.service.impl.AccountServiceImpl">
+		<property name="accountDao">
+			<ref local="accountDao" />
+		</property>
+	</bean>
+
+	<bean id="logsDao" class="com.HTHD_system.dao.impl.LogsDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+
+	<bean id="logsService"
+		class="com.HTHD_system.service.impl.LogsServiceImpl">
+		<property name="logsDao">
+			<ref local="logsDao" />
+		</property>
+	</bean>
+
+
+	<bean name="/account" class="com.HTHD_system.action.AccoutAction">
+		<property name="accountService">
+			<ref local="accountService" />
+		</property>
+		<property name="logsService">
+			<ref local="logsService" />
+		</property>
+	</bean>
+
+	<bean id="notificationLogDao"
+		class="com.HTHD_system.dao.impl.NotificationLogDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+	<bean id="notificationLogService"
+		class="com.HTHD_system.service.impl.NotificationLogServiceImpl">
+		<property name="notificationLogDao">
+			<ref local="notificationLogDao" />
+		</property>
+	</bean>
+
+	<bean id="progarmDao"
+		class="com.HTHD_system.dao.impl.TVProgarmDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+	<bean id="versionDao"
+		class="com.HTHD_system.dao.impl.ActVersionDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+	<bean id="prizeDao" class="com.HTHD_system.dao.impl.PrizeDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+	<bean id="progarmService"
+		class="com.HTHD_system.service.impl.TVProgarmServiceImpl">
+		<property name="progarmDao">
+			<ref local="progarmDao" />
+		</property>
+	</bean>
+
+	<bean id="prizeService"
+		class="com.HTHD_system.service.impl.PrizeServiceImpl">
+		<property name="prizeDao">
+			<ref local="prizeDao" />
+		</property>
+	</bean>
+
+	<bean id="versionService"
+		class="com.HTHD_system.service.impl.ActVersionServiceImpl">
+		<property name="versionDao">
+			<ref local="versionDao" />
+		</property>
+	</bean>
+
+
+	<bean name="/notificationLog"
+		class="com.HTHD_system.action.NotificationLogAction">
+		<property name="notificationLogService">
+			<ref local="notificationLogService" />
+		</property>
+		<property name="progarmService">
+			<ref local="progarmService" />
+		</property>
+		<property name="versionService">
+			<ref local="versionService" />
+		</property>
+		<property name="prizeService">
+			<ref local="prizeService" />
+		</property>
+	</bean>
+	<bean id="notificationDao"
+		class="com.HTHD_system.dao.impl.NotificationDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+	<bean id="notificationService"
+		class="com.HTHD_system.service.impl.NotificationServiceImpl">
+		<property name="notificationDao">
+			<ref local="notificationDao" />
+		</property>
+	</bean>
+	<bean id="tokenDao"
+		class="com.HTHD_system.dao.impl.IOSTokenDaoImpl">
+		<property name="sqlMapClientTemplate">
+			<ref local="sqlMapClientTemplate" />
+		</property>
+	</bean>
+	
+		<bean id="tokenService"
+		class="com.HTHD_system.service.impl.IOSTokenServiceImpl">
+	<property name="tokenDao">
+			<ref local="tokenDao" />
+		</property>
+	</bean>
+
+	<bean name="/notification"
+		class="com.HTHD_system.action.NotificationAction">
+		<property name="notificationService">
+			<ref local="notificationService" />
+		</property>
+		<property name="tokenService">
+			<ref local="tokenService" />
+		</property>
+		<property name="notificationLogService">
+			<ref local="notificationLogService" />
+		</property>
+			<property name="prizeService">
+			<ref local="prizeService" />
+		</property>
+	</bean>
+
+</beans>

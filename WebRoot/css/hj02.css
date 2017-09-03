@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+
+.text {
+	border-style: solid;
+	border-width: 1;
+}
+
+.submit {
+	margin-right: 50px;
+	background-color: rgb(235, 207, 22);
+}
+
+.lineInput {
+	BACKGROUND-COLOR: #F4F4FF;
+	color: #ff6600;
+	border-left-width: 0;
+	border-right-width: 0;
+	border-top-width: 0;
+	border-bottom-style: solid;
+	border-bottom-width: 1;
+	border-bottom-color: blue
+}
+
+.hint {
+	width: 198px;
+	border: 1px solid #000000;
+	background: #99ff33;
+	position: absolute;
+	z-index: 9;
+	padding: 6px;
+	line-height: 17px;
+	text-align: left;
+	top: 1520px;
+}
+
+/*
+隔行换色
+tr {
+	bgcolor: expression(this . bgColor =(( this . rowIndex) % 2 == 0 ) ?  
+		'white' :  
+             'yellow' );
+}*/
+
+	/*新加robinson-css*/
+	body{ margin:0 auto;padding:0;font-family: Arial, Helvetica, sans-serif;font-size:13px;background:url(../images/1_003.gif) 0 0 repeat;}
+
+	h3{text-align:center;}
+	h5{float:left;}	
+	#container {margin:20px 0 0 10px;padding:0;width:1150px;font-size:13px;}
+	form input{ cursor:pointer; font-size:12px;}
+    table{ width:1150px;margin:0;font-size:12px;border:1px solid #DDD;text-align:center;}
+	p{text-align:left;}
+	 table tr td input {width:65px;height:20px;font-size:10px;cursor:pointer;}
+	 .address{text-align:left;}
+    #footer{ margin:30px 0 10px 480px;}
+	.footer_1 {   width:40px;height:20px;text-align:center;
+	cursor:pointer; font-size:12px;}
+	.footer_2 {margin-left:100px;width:40px;height:20px; text-align:center;cursor:pointer;font-size:12px;}
+	
+	#page_1{float:left;}
+	#page_2{float:right;}
+	.page_1 input{ cursor:pointer;font-size:12px;}
+    .page_2 input{ cursor:pointer;font-size:12px;}
+    
+    
+    
+        #showMessage{margin:0 0 0 330px;}

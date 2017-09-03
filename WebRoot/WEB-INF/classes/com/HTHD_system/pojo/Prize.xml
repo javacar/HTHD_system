@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd">
+<sqlMap namespace="prize">
+	<typeAlias alias="prize" type="com.HTHD_system.pojo.Prize" />
+	<resultMap class="prize" id="prizeResult">
+		<result property="prizeId" column="PrizeID" />
+		<result property="prizeMessage" column="PrizeMessage" />
+		<result property="prizeType" column="PrizeType" />
+				<result property="avversion" column="AVVersion" />
+			<result property="actVersion.avid" column="avid" />
+
+	</resultMap>
+
+<select id="getAllPrizes" resultClass="prize">
+<![CDATA[select PrizeID,PrizeMessage,PrizeType,AVVersion from Prize a where not exists(select 1 from prize where PrizeType=a.PrizeType and PrizeId<a.PrizeId) and avid=#value#]]>
+</select>
+
+<select id="getPrize" resultMap="prizeResult">
+
+select  PrizeID, PrizeMessage,prizeType,a.avid,a.AVVersion from prize a inner join actversion b on a.avid=b.avid where PrizeID=#value#
+</select>
+
+</sqlMap>

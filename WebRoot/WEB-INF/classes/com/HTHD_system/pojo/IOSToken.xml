@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd">
+<sqlMap namespace="iosToken">
+	<typeAlias alias="iosToken" type="com.HTHD_system.pojo.IOSToken" />
+	<resultMap class="iosToken" id="tokenResult">
+		<result property="uid" column="iT_Uid" />
+		<result property="token" column="iT_Token" />
+		<result property="status" column="iT_Status" />
+		<result property="createDate" column="iT_CreateDate" />
+		<result property="stopDate" column="iT_StopDate" />
+		<result property="userInfo.id" column="UserID" />
+		<result property="userInfo.name" column="UserName" />
+	</resultMap>
+
+	<update id="updateTokesByToken">
+		update iOS_Token set iT_Status=iT_Status-1 where
+		iT_Token=#token# and iT_Status>0
+	</update>
+
+	<!-- 群发 -->
+	<select id="getAllTokens" resultMap="tokenResult">
+		select
+		iT_Uid,iT_Token,iT_Status,iT_CreateDate,iT_StopDate,a.UserID,UserName
+		from iOS_Token a inner join UserInfo b on a.userid=b.userid and
+		iT_Status>0 and it_uid in( select min(it_uid) from ios_token
+		group by iT_Token)
+	</select>
+
+	<select id="getCountTokens" resultClass="java.lang.Integer">
+		SELECT count(it_uid) from iOS_Token a inner join UserInfo b on
+		a.userid=b.userid and iT_Status>0 and it_uid in( select
+		min(it_uid) from ios_token group by iT_Token)
+	</select>
+
+
+	<!-- 发送时选择Userinfo表中UserLogin-当前时间＞N的UserID对应的iT_Token -->
+	<select id="getUserIDSByUserInfo" resultMap="tokenResult">
+		select
+		iT_Uid,iT_Token,iT_Status,iT_CreateDate,iT_StopDate,a.UserID,UserName
+		from iOS_Token a inner join UserInfo b on a.userid=b.userid and
+		it_uid in( select min(it_uid) from ios_token group by iT_Token)
+		where datediff(day,UserLogin,#date#)>=#dateDiffDay#
+	</select>
+
+	<select id="getTokensCountByUserInfo"
+		resultClass="java.lang.Integer">
+		SELECT count(iT_UID) from iOS_Token a inner join UserInfo b on
+		a.userid=b.userid and iT_Status>0 and it_uid in( select
+		min(it_uid) from ios_token group by iT_Token) where
+		datediff(day,UserLogin,#date#)>=#dateDiffDay#
+	</select>
+
+
+
+	<!-- 账号(多个用户之间用英文;分隔 -->
+	<select id="getUserIDSByUserName" resultMap="tokenResult"
+		parameterClass="java.util.List">
+		select
+		iT_Uid,iT_Token,iT_Status,iT_CreateDate,iT_StopDate,a.UserID,UserName
+		from iOS_Token a inner join UserInfo b on a.UserID=b.UserID and
+		iT_Status>0 where UserName in
+		<iterate open="(" close=")" conjunction=",">#list[]#</iterate>
+	</select>
+
+	<select id="getTokensCountByUserName"
+		resultClass="java.lang.Integer" parameterClass="java.util.List">
+		SELECT count(iT_UID) from iOS_Token a inner join UserInfo b on
+		a.userid=b.userid and iT_Status>0 where UserName in
+		<iterate open="(" close=")" conjunction=",">#list[]#</iterate>
+	</select>
+
+	<!-- 发送时选择Prize表中的既符合AVID又符合PrizeType的UserID对应的iT_Token -->
+	<select id="getUserIDSByPrize" resultMap="tokenResult">
+		select
+		iT_Uid,iT_Token,iT_Status,iT_CreateDate,iT_StopDate,a.UserID,b.UserName
+		from iOS_Token a inner join userinfo b on a.userid=b.userid and
+		it_status>0 inner join prize c on a.userid=c.userid and
+		PrizeType=#prizeType# inner join actversion d on c.avid=d.avid
+		and c.avid=#actVersion.avid# inner join tv_program e on
+		d.tvp_id=e.tvp_id
+
+	</select>
+
+	<select id="getTokensCountByPrize"
+		resultClass="java.lang.Integer">
+		SELECT count(iT_UID) from iOS_Token a inner join userinfo b on
+		a.userid=b.userid and it_status>0 inner join prize c on
+		a.userid=c.userid and PrizeType=#prizeType# inner join
+		actversion d on c.avid=d.avid and c.avid=#actVersion.avid# inner
+		join tv_program e on d.tvp_id=e.tvp_id
+	</select>
+
+</sqlMap>
+

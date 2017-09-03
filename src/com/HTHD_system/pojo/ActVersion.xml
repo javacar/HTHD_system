@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd">
+<sqlMap namespace="actVersion">
+	<typeAlias alias="actVersion" type="com.HTHD_system.pojo.ActVersion" />
+	<resultMap class="actVersion" id="actVersionResult">
+		<result property="avid" column="avid" />
+	<result property="avversion" column="avversion" />
+	</resultMap>
+<select id="getAllActVersions" resultClass="actVersion">
+select distinct a.avid,a.avversion from  ActVersion a inner join  prize b on a.avid=b.avid  
+where tvp_id=#value#
+</select>
+
+</sqlMap>

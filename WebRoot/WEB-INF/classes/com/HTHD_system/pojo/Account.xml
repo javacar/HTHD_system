@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd"> 
+<sqlMap namespace="account"> 
+<typeAlias alias="account" type="com.HTHD_system.pojo.Account"/> 
+<resultMap class="account" id="accountResult"> 
+<result property="accountUid" column="Account_Uid"/> 
+<result property="name" column="Name"/> 
+<result property="password" column="Password"/> 
+</resultMap> 
+<!-- 登录时使用 -->
+<select id="findAccountByNameAndPass" resultMap="accountResult"> 
+select Account_Uid,Name,Password from Account where Name=#name# and Password=#password#
+</select>
+
+<!-- 修改密码 -->
+<update id="updateAccountPassword">
+update account set Password=#password# where Account_Uid=#accountUid#
+</update>
+
+</sqlMap> 

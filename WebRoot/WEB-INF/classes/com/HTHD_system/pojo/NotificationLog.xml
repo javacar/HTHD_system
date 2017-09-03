@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD sql Map 2.0//EN" 
+"C:\Program Files\MyEclipse 6.5\myeclipse\eclipse\plugins\com.genuitec.eclipse.j2eedt.core_6.5.0.zmyeclipse650200806\catalog-dtd\sql-map-2.dtd"> 
+<sqlMap namespace="notificationLog"> 
+ 
+<typeAlias alias="notificationLog" type="com.HTHD_system.pojo.NotificationLog"/> 
+
+<resultMap class="notificationLog" id="notificationLogResult"> 
+<result property="nlUid" column="NL_Uid"/> 
+<result property="ntype" column="N_Type"/>
+<result property="notification.inUid" column="iN_Uid"/>
+<result property="notification.inTarget" column="iN_Target"/>
+<result property="notification.inContent" column="iN_Content"/>
+<result property="notification.sendTime" column="SendTime"/>
+<result property="notification.sendCount" column="SendCount"/>
+<result property="notification.successCount" column="SuccessCount" nullValue="0"/>
+<result property="notification.failureCount" column="FailureCount" nullValue="0"/>
+
+</resultMap> 
+
+<select id="findNotificationLogs" resultMap="notificationLogResult">
+select  row,NL_Uid,N_Type,iN_Uid,iN_Target,iN_Content,SendTime,SendCount,SuccessCount,FailureCount
+from (select row_number() over(order by SendTime desc) as row, NL_Uid,N_Type,a.iN_Uid,iN_Target,iN_Content,
+SendTime,SendCount,SuccessCount,FailureCount
+from Notification_Log a inner join iOS_Notification b 
+on a.iN_Uid=b.iN_Uid and a.N_Type=#ntype# )d where row between #begin# and #end#
+</select>
+
+<select id="getNotificationLogsCount" resultClass="java.lang.Integer">
+select count(NL_Uid)  from Notification_Log a inner join iOS_Notification b on a.iN_Uid=b.iN_Uid 
+and a.N_Type=#ntype#
+</select>
+
+<insert id="insertNotificationLog">
+insert into Notification_Log(N_Type
+<dynamic>
+<isGreaterThan property="notification.inUid" compareValue="0">
+,iN_Uid
+</isGreaterThan>
+<isGreaterThan property="notification2.id" compareValue="0">
+,id
+</isGreaterThan>
+</dynamic>
+)values(#ntype#
+<dynamic>
+<isGreaterThan property="notification.inUid" compareValue="0">
+,#notification.inUid#
+</isGreaterThan>
+</dynamic>
+)
+</insert>
+</sqlMap> 
